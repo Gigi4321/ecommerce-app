@@ -1,0 +1,1 @@
+import{Jb as m,Qa as t,lb as e,mb as a}from"./chunk-MJLM5QAF.js";import"./chunk-C6Q5SG76.js";var p=class o{static \u0275fac=function(n){return new(n||o)};static \u0275cmp=t({type:o,selectors:[["app-not-found"]],decls:2,vars:0,template:function(n,s){n&1&&(e(0,"p"),m(1,"not-found works!"),a())},encapsulation:2})};export{p as NotFoundComponent};
