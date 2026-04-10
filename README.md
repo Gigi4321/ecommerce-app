@@ -1,59 +1,162 @@
-# ECommerce
+# eCommerce Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.5.
+[![Angular](https://img.shields.io/badge/Angular-21.2.0-red.svg)](https://angular.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue.svg)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.12-38B2AC.svg)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Development server
+A modern, responsive eCommerce web application built with Angular 21, featuring user authentication, product browsing, shopping cart, wishlist, checkout, and order management. This application provides a seamless online shopping experience with a clean, intuitive UI powered by TailwindCSS and Flowbite.
 
-To start a local development server, run:
+## 🚀 Features
+
+- **User Authentication**: Secure login, registration, and password recovery
+- **Product Browsing**: Browse products by categories, brands, and search functionality
+- **Shopping Cart**: Add, remove, and manage items in the cart
+- **Wishlist**: Save favorite products for later
+- **Checkout Process**: Secure and streamlined checkout with multiple payment options
+- **Order Management**: View order history and track orders
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Server-Side Rendering (SSR)**: Improved performance and SEO
+- **Real-time Notifications**: Toast notifications for user actions
+- **Loading Indicators**: Spinner animations for better UX
+- **Pagination**: Efficient product listing with pagination
+- **Image Carousels**: Product image galleries using Swiper
+
+## 🛠️ Technologies Used
+
+- **Frontend Framework**: Angular 21
+- **Language**: TypeScript
+- **Styling**: TailwindCSS, Flowbite
+- **Icons**: FontAwesome
+- **State Management**: RxJS
+- **HTTP Client**: Angular HttpClient with interceptors
+- **Forms**: Angular Reactive Forms
+- **Routing**: Angular Router
+- **SSR**: Angular Universal
+- **Testing**: Vitest
+- **Build Tool**: Angular CLI
+- **Package Manager**: npm
+
+## 📋 Prerequisites
+
+Before running this application, make sure you have the following installed:
+
+- Node.js (version 18 or higher)
+- npm (version 9 or higher)
+- Angular CLI (version 21 or higher)
+
+## 🔧 Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/e-commerce.git
+   cd e-commerce
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**:
+   - Copy `environments/environment.ts` to `environments/environment.development.ts` if needed
+   - Update API endpoints and other configuration as required
+
+## 🚀 Usage
+
+### Development Server
+
+To start the development server:
 
 ```bash
-ng serve
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The application will be available at `http://localhost:4200`.
 
-## Code scaffolding
+### Build for Production
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+To build the application for production:
 
 ```bash
-ng generate component component-name
+npm run build
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The build artifacts will be stored in the `dist/eCommerce` directory.
+
+### Server-Side Rendering
+
+To run the application with SSR:
 
 ```bash
-ng generate --help
+npm run serve:ssr:eCommerce
 ```
 
-## Building
+### Testing
 
-To build the project run:
+To run the unit tests:
 
 ```bash
-ng build
+npm test
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 📁 Project Structure
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+```
+src/
+├── app/
+│   ├── core/
+│   │   ├── auth/
+│   │   │   ├── guards/
+│   │   │   └── services/
+│   │   ├── interceptors/
+│   │   ├── models/
+│   │   └── services/
+│   ├── features/
+│   │   ├── brands/
+│   │   ├── cart/
+│   │   ├── categories/
+│   │   ├── checkout/
+│   │   ├── details/
+│   │   ├── forget/
+│   │   ├── home/
+│   │   ├── login/
+│   │   ├── not-found/
+│   │   ├── orders/
+│   │   ├── profile/
+│   │   ├── register/
+│   │   ├── shop/
+│   │   └── wishlist/
+│   ├── layouts/
+│   │   ├── footer/
+│   │   └── navbar/
+│   ├── our-services/
+│   └── shared/
+│       ├── interfaces/
+│       ├── pipes/
+│       └── ui/
+├── environments/
+└── styles.css
 ```
 
-## Running end-to-end tests
+## 🤝 Contributing
 
-For end-to-end (e2e) testing, run:
+Contributions are welcome! Please follow these steps:
 
-```bash
-ng e2e
-```
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 📄 License
 
-## Additional Resources
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📞 Contact
+
+If you have any questions or suggestions, feel free to open an issue or contact the maintainers.
+
+---
+
+**Note**: This application requires a backend API for full functionality. Make sure to configure the API endpoints in the environment files.
