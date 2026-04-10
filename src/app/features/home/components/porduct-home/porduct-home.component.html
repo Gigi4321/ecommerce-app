@@ -1,0 +1,19 @@
+<div class="container mb-20">
+    <app-header-section blackText="Featured" decoratedText="Products"></app-header-section>
+<div class="grid sm:grid-cols-2 md:grid-cols-4 lg-5  gap-4 items-stretch">
+  @for (card of productList()|paginate: { id: 'home',
+        itemsPerPage: pageSize(),
+        currentPage: cp(),
+        totalItems: total()}; track card._id) {
+    <app-card [card]="card"></app-card>
+  }
+</div>
+ <div class="flex justify-center mb-12">
+        <pagination-controls id="home" (pageChange)="pageChanged($event)" [maxSize]="9" [directionLinks]="true"
+            class="custom-pagination"
+            [autoHide]="true" [responsive]="true" previousLabel="Previous" nextLabel="Next"
+            screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+    </div>
+</div>

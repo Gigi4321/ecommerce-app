@@ -1,0 +1,37 @@
+<div class="bg-linear-to-br from-green-600 via-green-500 to-primary-400 text-white mb-8">
+    <div class="container mx-auto px-4 py-10 sm:py-14">
+        <nav class="flex items-center gap-2 text-sm text-white/70 mb-6 flex-wrap"><a
+                class="hover:text-white transition-colors" routerLink="/">Home</a><span class="text-white/40">/</span><span
+                class="text-white font-medium">All Products</span></nav>
+        <div class="flex items-center gap-5">
+            <div
+                class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl ring-1 ring-white/30">
+                <i class="fa-solid fa-box-open text-2xl"></i>
+            </div>
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">All Products</h1>
+                <p class="text-white/80 mt-1">Explore our complete product collection</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="mb-6 text-sm text-gray-500"><p>Showing {{productList().length}} products</p></div>
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 lg-5  gap-4 mb-8">
+        @for (card of productList()|paginate: { id: 'foo',
+        itemsPerPage: pageSize(),
+        currentPage: cp(),
+        totalItems: total()}; track card._id) {
+        <app-card [card]="card"></app-card>
+        }
+    </div>
+    <div class="flex justify-center mb-12">
+        <pagination-controls id="foo" (pageChange)="pageChanged($event)" [maxSize]="9" [directionLinks]="true"
+            class="custom-pagination"
+            [autoHide]="true" [responsive]="true" previousLabel="Previous" nextLabel="Next"
+            screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+    </div>
+</div>
+<app-our-services></app-our-services>

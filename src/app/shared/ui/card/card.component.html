@@ -1,0 +1,47 @@
+<div class="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300 group font-sans h-full">
+  <div class="relative overflow-hidden mb-4 rounded-xl bg-gray-50">
+    <img [src]="card().imageCover" [alt]="card().title" 
+         class="w-full h-48 object-contain group-hover:scale-105 transition-transform duration-500" />
+    
+    <div class="absolute top-2 right-2 flex flex-col gap-2">
+      <button (click)="toggleWishlist(card()._id)"
+              class="w-10 h-10 shadow-sm border rounded-full bg-white flex border-gray-100 items-center justify-center transition-all" 
+              [class]="isInWishlist() ? ' text-red-500' : ' text-gray-400  hover:text-red-500'">
+        <i [class]="isInWishlist() ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+      </button>
+
+      <a [routerLink]="['/details', card()._id, card().slug]"
+         class="w-10 h-10 bg-white shadow-sm border border-gray-100 rounded-full flex items-center justify-center text-gray-400 hover:bg-emerald-600 hover:text-white transition-all">
+        <i class="fa-regular fa-eye"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="space-y-1">
+    <p class="text-[10px] text-emerald-600 font-bold tracking-widest uppercase">
+      {{ card().category.name }}
+    </p>
+    
+    <h3 class="line-clamp-1 text-base font-bold text-slate-800 hover:text-emerald-600 cursor-pointer transition-colors">
+      {{ card().title }}
+    </h3>
+
+    <div class="flex items-center gap-1">
+      <div class="flex text-yellow-400 text-[10px] gap-0.5">
+        @for (star of [1,2,3,4,5]; track star) {
+          <i class="fa-solid fa-star" [class.text-gray-200]="star > card().ratingsAverage"></i>
+        }
+      </div>
+      <span class="text-xs text-gray-400 font-medium">{{ card().ratingsAverage }}</span>
+    </div>
+
+    <div class="flex items-center justify-between pt-3">
+      <span class="text-lg font-bold text-slate-900 leading-none">{{ card().price }} EGP</span>
+      <button (click)="AddItemToCart(card()._id)"
+              class="h-10 px-4 bg-emerald-600 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-emerald-700 transition-all shadow-sm active:scale-95 text-sm font-semibold">
+        <i class="fa-solid fa-cart-plus"></i>
+        Add
+      </button>
+    </div>
+  </div>
+</div>

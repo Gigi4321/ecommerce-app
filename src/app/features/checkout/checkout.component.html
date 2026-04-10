@@ -1,0 +1,344 @@
+<div class="container">
+    <div class="my-8">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+            <a class="hover:text-primary-600 transition" href="/">Home</a>
+            <span class="text-gray-300">/</span>
+            <a class="hover:text-primary-600 transition" href="/cart">Cart</a>
+            <span class="text-gray-300">/</span>
+            <span class="text-gray-900 font-medium">Checkout</span>
+        </nav>
+
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
+
+                    <!-- Icon -->
+                    <span
+                        class="bg-primary text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg shadow-primary-600/20">
+                        <i class="fa-solid fa-file-lines text-[1.25rem]"></i>
+                    </span>
+
+                    Complete Your Order
+                </h1>
+
+                <p class="text-gray-500 mt-2">
+                    Review your items and complete your purchase
+                </p>
+            </div>
+
+            <!-- Back Button -->
+            <a href="/cart"
+                class="text-primary-600 hover:text-primary-700 font-medium flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-primary-50 transition-all">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Cart
+            </a>
+
+        </div>
+    </div>
+    <form [formGroup]="checkOut" (ngSubmit)="submitForm()" class="mb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+                    <div class="bg-primary px-6 py-4">
+                        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-house"></i> Shipping Address
+                        </h2>
+                        <p class="text-white/80 text-sm mt-1">Where should we deliver your order?</p>
+                    </div>
+
+                    <div class="p-6 space-y-5">
+                        <div class="pb-5 border-b border-gray-100">
+                            <div class="flex items-center gap-2 mb-3">
+                                <i class="fa-solid fa-bookmark text-primary text-sm"></i>
+                                <span class="font-semibold text-gray-800">Saved Addresses</span>
+                            </div>
+                            <div class="space-y-3">
+                                <p class="text-sm font-medium text-gray-600">Select a saved address or enter a new one
+                                    below</p>
+
+                                @for (item of addresses(); track $index) {
+                                <button type="button" type="button" (click)="selectAddress(item)"
+                                    class="w-full p-4 rounded-xl border-2 text-left transition-all duration-200 cursor-pointer"
+                                    [class.border-green-600]="selectedAddressId() === item._id"
+                                    [class.bg-green-50]="selectedAddressId() === item._id"
+                                    [class.border-gray-200]="selectedAddressId() !== item._id">
+                                    <div class="flex items-start gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors bg-gray-100 text-gray-500">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="font-semibold text-gray-900">{{item.name}}</p>
+                                            <p class="text-sm text-gray-600 mt-0.5 line-clamp-1">{{item.details}}</p>
+                                            <div class="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                                                <span class="flex items-center gap-1"><i
+                                                        class="fa-solid fa-phone text-[10px]"></i> {{item.phone}}</span>
+                                                <span class="flex items-center gap-1"><i
+                                                        class="fa-solid fa-city text-[10px]"></i> {{item.city}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </button>
+                                }
+
+                                <button type="button" (click)="show()"
+                                    class="w-full p-4 rounded-xl border-2 border-dashed text-left transition-all duration-200 border-primary bg-primary/5">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded-lg flex items-center justify-center bg-primary text-white">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-primary">Use a different address</p>
+                                            <p class="text-xs text-gray-500 mt-0.5">Enter a new shipping address
+                                                manually</p>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        @if(flag()){
+                        <div class="flex items-start gap-3 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-circle-info text-blue-600 text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-blue-800 font-medium">Delivery Information</p>
+                                <p class="text-xs text-blue-600 mt-0.5">Please ensure your address is accurate for
+                                    smooth delivery</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4" [formGroup]="checkOut">
+                            <div formGroupName="shipingAddress" class="space-y-4">
+
+                                <div>
+                                    <label for="city" class="block text-sm font-semibold text-gray-700 mb-2">City <span
+                                            class="text-red-500">*</span></label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
+                                            <i class="fa-solid fa-city text-gray-500 text-sm"></i>
+                                        </div>
+                                        <input formControlName="city" id="city" type="text"
+                                            class="w-full px-4 py-3.5 pl-14 border-2 rounded-xl focus:outline-none transition-all"
+                                            [class]="checkOut.get('shipingAddress.city')?.touched && checkOut.get('shipingAddress.city')?.errors ? 'border-red-500' : 'border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10'"
+                                            placeholder="e.g. Cairo">
+                                    </div>
+
+                                    @if (checkOut.get('shipingAddress.city')?.touched &&
+                                    checkOut.get('shipingAddress.city')?.hasError('required')) {
+                                    <p class="text-red-500 text-xs mt-1 animate-pulse">City is required.</p>
+                                    }
+                                </div>
+
+                                <div>
+                                    <label for="details" class="block text-sm font-semibold text-gray-700 mb-2">Street
+                                        Address <span class="text-red-500">*</span></label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute left-4 top-4 w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
+                                            <i class="fa-solid fa-location-dot text-gray-500 text-sm"></i>
+                                        </div>
+                                        <textarea formControlName="details" id="details" rows="3"
+                                            class="w-full px-4 py-3.5 pl-14 border-2 rounded-xl focus:outline-none transition-all resize-none"
+                                            [class]="checkOut.get('shipingAddress.details')?.touched && checkOut.get('shipingAddress.details')?.errors ? 'border-red-500' : 'border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10'"
+                                            placeholder="Street name, building number..."></textarea>
+                                    </div>
+
+                                    @if (checkOut.get('shipingAddress.details')?.touched &&
+                                    checkOut.get('shipingAddress.details')?.hasError('required')) {
+                                    <p class="text-red-500 text-xs mt-1">Address details are required.</p>
+                                    }
+                                </div>
+
+                                <div>
+                                    <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">Phone
+                                        Number <span class="text-red-500">*</span></label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
+                                            <i class="fa-solid fa-phone text-gray-500 text-sm"></i>
+                                        </div>
+                                        <input formControlName="phone" id="phone" type="tel"
+                                            class="w-full px-4 py-3.5 pl-14 border-2 rounded-xl focus:outline-none transition-all"
+                                            [class]="checkOut.get('shipingAddress.phone')?.touched && checkOut.get('shipingAddress.phone')?.errors ? 'border-red-500' : 'border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10'"
+                                            placeholder="01xxxxxxxxx">
+
+                                        @if (!checkOut.get('shipingAddress.phone')?.errors) {
+                                        <span
+                                            class="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gray-400">Egyptian
+                                            numbers only</span>
+                                        }
+                                    </div>
+
+                                    @if (checkOut.get('shipingAddress.phone')?.touched) {
+                                    @if (checkOut.get('shipingAddress.phone')?.hasError('required')) {
+                                    <p class="text-red-500 text-xs mt-1">Phone is required.</p>
+                                    } @else if (checkOut.get('shipingAddress.phone')?.hasError('pattern')) {
+                                    <p class="text-red-500 text-xs mt-1">Please enter a valid Egyptian phone number.</p>
+                                    }
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+                    <div class="bg-primary px-6 py-4">
+                        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-wallet"></i> Payment Method
+                        </h2>
+                        <p class="text-white/80 text-sm mt-1">Choose how you'd like to pay</p>
+                    </div>
+
+                    <div class="p-6 space-y-4">
+                        <button (click)="setMethod('cash')" type="button"
+                            class="w-full p-5 rounded-xl border-2 transition-all flex items-center gap-4 group border-gray-200 shadow-sm"
+                            [class.border-primary]="cardMethod()==='cash'" [class.bg-primary/5]="cardMethod()==='cash'">
+                            <div class="w-14 h-14 rounded-xl flex items-center justify-center transition-all bg-gray-100 text-gray-400"
+                                [class.bg-primary]="cardMethod()==='cash'" [class.text-white]="cardMethod()==='cash'">
+                                <i class="fa-solid fa-money-bill text-xl"></i>
+                            </div>
+                            <div class="flex-1 text-left">
+                                <h3 class="font-bold text-gray-900" [class.text-primary]="cardMethod()==='cash'">Cash on
+                                    Delivery</h3>
+                                <p class="text-sm text-gray-500 mt-0.5">Pay when your order arrives</p>
+                            </div>
+                            <div class="w-7 h-7 rounded-full flex items-center justify-center transition-all border-2"
+                                [class.bg-primary]="cardMethod()==='cash'"
+                                [class.border-primary]="cardMethod()==='cash'"
+                                [class.text-white]="cardMethod()==='cash'"
+                                [class.border-gray-200]="cardMethod()!=='cash'">
+                                @if(cardMethod()==='cash'){<i class="fa-solid fa-check text-xs"></i>}
+                            </div>
+                        </button>
+
+                        <button (click)="setMethod('visa')" type="button"
+                            class="w-full p-5 rounded-xl border-2 transition-all flex items-center gap-4 group border-gray-200 shadow-sm"
+                            [class.border-primary]="cardMethod()==='visa'" [class.bg-primary/5]="cardMethod()==='visa'">
+                            <div class="w-14 h-14 rounded-xl flex items-center justify-center transition-all bg-gray-100 text-gray-400"
+                                [class.bg-primary]="cardMethod()==='visa'" [class.text-white]="cardMethod()==='visa'">
+                                <i class="fa-solid fa-credit-card text-xl"></i>
+                            </div>
+                            <div class="flex-1 text-left">
+                                <h3 class="font-bold text-gray-900" [class.text-primary]="cardMethod()==='visa'">Pay
+                                    Online</h3>
+                                <p class="text-sm text-gray-500 mt-0.5">Secure payment via Stripe</p>
+                                <div class="flex items-center gap-2 mt-2">
+                                    <img alt="Visa" class="h-5" src="https://img.icons8.com/color/48/visa.png">
+                                    <img alt="Mastercard" class="h-5"
+                                        src="https://img.icons8.com/color/48/mastercard.png">
+                                </div>
+                            </div>
+                            <div class="w-7 h-7 rounded-full flex items-center justify-center transition-all border-2"
+                                [class.bg-primary]="cardMethod()==='visa'"
+                                [class.border-primary]="cardMethod()==='visa'"
+                                [class.text-white]="cardMethod()==='visa'"
+                                [class.border-gray-200]="cardMethod()!=='visa'">
+                                @if(cardMethod()==='visa'){<i class="fa-solid fa-check text-xs"></i>}
+                            </div>
+                        </button>
+
+                        <div class="flex items-center gap-3 p-4 bg-green-50 rounded-xl border border-green-100 mt-4">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-shield-halved text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-green-800">Secure & Encrypted</p>
+                                <p class="text-xs text-green-600 mt-0.5">Protected with 256-bit SSL encryption</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm sticky top-4">
+                    <div class="bg-primary px-6 py-4">
+                        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-bag-shopping"></i> Order Summary
+                        </h2>
+                        <p class="text-white/80 text-sm mt-1">1 item</p>
+                    </div>
+
+                    <div class="p-5">
+                        <div class="space-y-3 max-h-56 overflow-y-auto mb-5 pr-1">
+                            <div
+                                class="flex items-center gap-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <div class="w-14 h-14 rounded-lg bg-white p-1 border border-gray-100 shrink-0">
+                                    <img alt="Product" class="w-full h-full object-contain"
+                                        src="https://ecommerce.routemisr.com/Route-Academy-products/1680403266739-cover.jpeg">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">Woman Shawl</p>
+                                    <p class="text-xs text-gray-500 mt-0.5">5 × 149 EGP</p>
+                                </div>
+                                <p class="text-sm font-bold text-gray-900 shrink-0">745</p>
+                            </div>
+                        </div>
+
+                        <hr class="border-gray-100 my-4">
+
+                        <div class="space-y-3">
+                            <div class="flex justify-between text-gray-600">
+                                <span>Subtotal</span>
+                                <span class="font-medium">745 EGP</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600">
+                                <span class="flex items-center gap-2"><i class="fa-solid fa-truck text-gray-400"></i>
+                                    Shipping</span>
+                                <span class="text-green-600 font-semibold">FREE</span>
+                            </div>
+                            <hr class="border-gray-100">
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg font-bold text-gray-900">Total</span>
+                                <div class="text-right">
+                                    <span class="text-2xl font-bold text-primary">745</span>
+                                    <span class="text-sm text-gray-500 ml-1">EGP</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if(cardMethod()==='cash'){
+                        <button type="submit" 
+                            class="w-full mt-6 bg-primary text-white py-4 rounded-xl font-bold hover:brightness-110 transition-all shadow-lg shadow-primary/20 active:scale-[0.98] flex items-center justify-center gap-2 ">
+                            <i class="fa-solid fa-box"></i> Place Order
+                        </button>
+                        }@else{
+                        <button type="submit" 
+                            class="w-full mt-6 bg-primary text-white py-4 rounded-xl font-bold hover:brightness-110 transition-all shadow-lg shadow-primary/20 active:scale-[0.98] flex items-center justify-center gap-2  ">
+                            <i class="fa-solid fa-shield-halved"></i> Proceed to Payment
+                        </button>
+                        }
+
+                        <div class="flex items-center justify-center gap-4 mt-4 py-3 border-t border-gray-100">
+                            <div
+                                class="flex items-center gap-1.5 text-2xs uppercase tracking-wider font-bold text-gray-400">
+                                <i class="fa-solid fa-shield-halved text-green-500"></i> Secure
+                            </div>
+                            <div class="w-px h-4 bg-gray-200"></div>
+                            <div
+                                class="flex items-center gap-1.5 text-2xs uppercase tracking-wider font-bold text-gray-400">
+                                <i class="fa-solid fa-truck text-primary"></i> Fast
+                            </div>
+                            <div class="w-px h-4 bg-gray-200"></div>
+                            <div
+                                class="flex items-center gap-1.5 text-2xs uppercase tracking-wider font-bold text-gray-400">
+                                <i class="fa-solid fa-rotate-left text-orange-500"></i> Returns
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

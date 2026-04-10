@@ -1,0 +1,90 @@
+<div class="bg-linear-to-br from-green-600 via-green-500 to-green-400 text-white">
+
+  <div class="container mx-auto px-4 py-10 sm:py-12">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-white/70 mb-6">
+      <a class="hover:text-white transition-colors duration-200" href="/">Home</a>
+      <span class="text-white/40">/</span>
+      <span class="text-white font-medium">My Account</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="flex items-center gap-5">
+
+      <!-- Icon -->
+      <div
+        class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl ring-1 ring-white/30">
+        <i class="fa-solid fa-user text-3xl"></i>
+      </div>
+
+      <!-- Text -->
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">My Account</h1>
+        <p class="text-white/80 mt-1">Manage your addresses and account settings</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="container mx-auto px-4 py-8">
+  <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
+
+    <!-- Sidebar -->
+    <aside class="w-full lg:w-72 shrink-0">
+      <nav class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+
+        <div class="p-4 border-b border-gray-100">
+          <h2 class="font-bold text-gray-900">My Account</h2>
+        </div>
+
+        <ul class="p-2">
+
+          <!-- My Addresses -->
+          <li>
+            <a routerLink="/profile/addresses" routerLinkActive="bg-green-100 text-gray-700"
+             
+              class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-gray-600 ">
+
+              <div
+                class="w-9 h-9 rounded-lg flex items-center justify-center bg-slate-200  group-[.bg-primary-500]:bg-white group-[.bg-primary-500]:text-primary-500">
+                <i class="fa-solid fa-location-dot text-sm"></i>
+              </div>
+
+              <span class="font-medium flex-1">My Addresses</span>
+
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </a>
+          </li>
+
+          <!-- Settings -->
+          <li>
+            <a routerLink="/profile/settings" routerLinkActive="bg-green-100 text-gray-700"
+              class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-gray-600 ">
+
+              <div
+                class="w-9 h-9 rounded-lg flex items-center justify-center bg-slate-200 text-gray-700 group-hover:bg-gray-200">
+                <i class="fa-solid fa-gear text-sm"></i>
+              </div>
+
+              <span class="font-medium flex-1">Settings</span>
+
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="w-full">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>
